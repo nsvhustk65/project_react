@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
-import { Image, Spin, Table } from "antd";
+import { Image, Table, Button, Space, message } from "antd";
 
 interface Product {
   id: string;
   name: string;
   price: number;
+  description: string;
 }
 function ProductList() {
   const fetchProducts = async () => {
@@ -17,6 +18,19 @@ function ProductList() {
     queryFn: fetchProducts,
   });
   console.log(data, isLoading, error);
+    // Hàm xử lý khi bấm "Sửa"
+  const handleEdit = (record: Product) => {
+    console.log("Sửa sản phẩm:", record);
+    message.info(`Sửa sản phẩm: ${record.name}`);
+    // Ví dụ: open modal, navigate to edit page, etc.
+  };
+
+  // Hàm xử lý khi bấm "Xoá"
+  const handleDelete = (record: Product) => {
+    console.log("Xoá sản phẩm:", record);
+    message.warning(`Xoá sản phẩm: ${record.name}`);
+    // TODO: gọi API xoá (DELETE), confirm xoá
+  };
   const columns = [
     {
       title: "ID",
@@ -40,6 +54,20 @@ function ProductList() {
     },
     {
       title: "Description",
+      dataIndex: "description",
+    },
+      {
+      title: "Actions",
+      render: (_: any, record: Product) => (
+        <Space>
+          <Button type="primary" onClick={() => handleEdit(record)}>
+            Sửa
+          </Button>
+          <Button type="primary" danger onClick={() => handleDelete(record)}>
+            Xoá
+          </Button>
+        </Space>
+      ),
     },
   ];
   return (

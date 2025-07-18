@@ -1,55 +1,54 @@
 import { useQuery } from "@tanstack/react-query";
 import { Image, Table, Button, Space, message } from "antd";
 
-// Interface cho danh mục
-interface Category {
-  id: number;
+interface Brand {
+  id: string;
   name: string;
   description: string;
 }
 
-function CategoryList() {
-  // Hàm fetch data
-  const fetchCategories = async () => {
-    const res = await fetch("http://localhost:3001/categories");
+function BrandList() {
+  const fetchBrands = async () => {
+    const res = await fetch("http://localhost:3001/brands");
+    if (!res.ok) {
+      throw new Error("Failed to fetch brands");
+    }
     return res.json();
   };
 
-  // Dùng React Query để gọi API
-  const { data, isLoading, error } = useQuery<Category[]>({
-    queryKey: ["categories"],
-    queryFn: fetchCategories,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ["brands"],
+    queryFn: fetchBrands,
   });
     // Hàm xử lý khi bấm "Sửa"
-  const handleEdit = (record: Category) => {
+  const handleEdit = (record: Brand) => {
     console.log("Sửa sản phẩm:", record);
     message.info(`Sửa sản phẩm: ${record.name}`);
     // Ví dụ: open modal, navigate to edit page, etc.
   };
 
   // Hàm xử lý khi bấm "Xoá"
-  const handleDelete = (record: Category) => {
+  const handleDelete = (record: Brand) => {
     console.log("Xoá sản phẩm:", record);
     message.warning(`Xoá sản phẩm: ${record.name}`);
     // TODO: gọi API xoá (DELETE), confirm xoá
   };
-  // Cột bảng
   const columns = [
     {
       title: "ID",
       dataIndex: "id",
     },
     {
-      title: "Tên danh mục",
+      title: "Name",
       dataIndex: "name",
     },
     {
-      title: "Mô tả",
+      title: "Description",
       dataIndex: "description",
     },
         {
       title: "Actions",
-      render: (_: any, record: Category) => (
+      render: (_: any, record: Brand) => (
         <Space>
           <Button type="primary" onClick={() => handleEdit(record)}>
             Sửa
@@ -60,16 +59,15 @@ function CategoryList() {
         </Space>
       ),
     },
-    
   ];
 
   return (
     <div>
-      {error && <p>Lỗi: {(error as Error).message}</p>}
+      {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
       <Table
         dataSource={data}
         columns={columns}
-        rowKey={"id"}
+        rowKey="id"
         loading={isLoading}
         pagination={{ pageSize: 5 }}
       />
@@ -77,4 +75,4 @@ function CategoryList() {
   );
 }
 
-export default CategoryList;
+export default BrandList;
