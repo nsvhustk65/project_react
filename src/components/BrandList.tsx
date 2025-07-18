@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Image, Table, Button, Space, message } from "antd";
+import Header from "./Header";
 
 interface Brand {
   id: string;
@@ -63,6 +64,8 @@ function BrandList() {
 
   return (
     <div>
+      <Header />
+      
       {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
       <Table
         dataSource={data}

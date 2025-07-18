@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Table, Button, Space, message } from "antd";
+import Header from "./Header";
 
 interface Order {
   id: string;
@@ -38,6 +39,10 @@ function OrderList() {
       title: "Khách hàng",
       dataIndex: "customerName",
     },
+        {
+      title: "Sản phẩm",
+      dataIndex: "customerName",
+    },
     {
       title: "Tổng tiền",
       dataIndex: "totalAmount",
@@ -66,7 +71,8 @@ function OrderList() {
   ];
 
   return (
-  <div className="container mt-4">
+  <div >
+    <Header />
     {error && <p className="text-danger">Lỗi: {error.message}</p>}
 
     <Table

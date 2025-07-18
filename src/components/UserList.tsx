@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Table, Button, Space, message } from "antd";
+import Header from "./Header";
 
 interface User {
   id: string;
@@ -73,6 +74,7 @@ function UserList() {
 
   return (
     <div>
+      <Header />
       {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
       <Table
         dataSource={data}

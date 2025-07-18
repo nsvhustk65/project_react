@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { Image, Table, Button, Space, message } from "antd";
+import Header from "./Header";
 
 // Interface cho danh mục
 interface Category {
@@ -65,6 +66,7 @@ function CategoryList() {
 
   return (
     <div>
+      <Header />
       {error && <p>Lỗi: {(error as Error).message}</p>}
       <Table
         dataSource={data}

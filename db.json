@@ -60,6 +60,8 @@
     "orders": [
     {
       "id": "101",
+      "products":"1,2",
+      "userId": "1",
       "customerName": "Nguyen Van A",
       "totalAmount": 1200000,
       "status": "Đã giao",
@@ -68,6 +70,8 @@
     {
       "id": "102",
       "customerName": "Tran Thi B",
+      "products": "2,3",
+      "userId": "2",
       "totalAmount": 850000,
       "status": "Đang xử lý",
       "date": "2024-07-16"

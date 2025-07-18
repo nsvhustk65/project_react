@@ -4,23 +4,20 @@ import "./App.css";
 import BrandList from "./components/BrandList";
 import UserList from "./components/UserList";
 import OrderList from "./components/OrderList";
+import { createBrowserRouter, Route, RouterProvider } from "react-router-dom";
 
 function App() {
+  const router = createBrowserRouter([
+    { path: "/", element: <ProductList /> },
+    { path: "/products", element: <ProductList /> },
+    { path: "/categories", element: <CategoryList /> },
+    { path: "/orders", element: <OrderList /> },
+    { path: "/brands", element: <BrandList /> },
+    { path: "/users", element: <UserList /> },
+  ]);
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Danh sách Sản phẩm</h2>
-      <ProductList />
-
-      <h2 style={{ marginTop: 40 }}>Danh sách D anh mục</h2>
-      <CategoryList />
-
-      <h2 style={{ marginTop: 40 }}>Danh sách Thương hiệu</h2>
-      <BrandList />
-
-      <h2 style={{ marginTop: 40 }}>Danh sách Người dùng</h2>
-      <UserList />
-            <h2 style={{ marginTop: 40 }}>Danh sách Đơn hàng</h2>
-      <OrderList />
+    <div >
+      <RouterProvider router={router} />
     </div>
   );
 }
