@@ -73,7 +73,7 @@ function ProductList() {
   ];
   return (
     <div>
-      <Header />
+    
       {/* {isLoading && <Spin />} */}
       {error && <p>Error: {error.message}</p>}
       {/* {data?.map((item: Product) => (

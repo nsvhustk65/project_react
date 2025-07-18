@@ -74,7 +74,7 @@ function UserList() {
 
   return (
     <div>
-      <Header />
+      
       {error && <p style={{ color: "red" }}>Error: {error.message}</p>}
       <Table
         dataSource={data}

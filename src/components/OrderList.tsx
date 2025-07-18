@@ -41,7 +41,7 @@ function OrderList() {
     },
         {
       title: "Sản phẩm",
-      dataIndex: "customerName",
+      dataIndex: "products",
     },
     {
       title: "Tổng tiền",
@@ -72,7 +72,7 @@ function OrderList() {
 
   return (
   <div >
-    <Header />
+  
     {error && <p className="text-danger">Lỗi: {error.message}</p>}
 
     <Table

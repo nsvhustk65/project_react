@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   HomeOutlined,
   ProfileFilled,
@@ -7,49 +7,53 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Menu } from "antd";
-import { useNavigate } from "react-router-dom";
-import BrandList from "./BrandList";
-import UserList from "./UserList";
+import { useNavigate, useLocation } from "react-router-dom";
 
 type MenuItem = Required<MenuProps>["items"][number];
 
 const items: MenuItem[] = [
   {
     label: "Homepage",
-    key: "/",
+    key: "/admin", // default path
     icon: <HomeOutlined />,
   },
   {
     label: "Products",
-    key: "/products",
+    key: "/admin/products",
     icon: <ShopFilled />,
   },
   {
     label: "Categories",
-    key: "/categories",
+    key: "/admin/categories",
     icon: <UnorderedListOutlined />,
   },
-    {
+  {
     label: "Brands",
-    key: "/brands",
+    key: "/admin/brands",
     icon: <UnorderedListOutlined />,
   },
-    {
+  {
     label: "Users",
-    key: "/users",
+    key: "/admin/users",
     icon: <ProfileFilled />,
   },
-      {
+  {
     label: "Orders",
-    key: "/orders",
+    key: "/admin/orders",
     icon: <ShopFilled />,
   },
-  
 ];
 
 const Header: React.FC = () => {
-  const [current, setCurrent] = useState("home");
+  const location = useLocation();
   const navigate = useNavigate();
+
+  const [current, setCurrent] = useState(location.pathname);
+
+  // Cập nhật menu được chọn khi URL thay đổi
+  useEffect(() => {
+    setCurrent(location.pathname);
+  }, [location.pathname]);
 
   const onClick: MenuProps["onClick"] = (e) => {
     setCurrent(e.key);

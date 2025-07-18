@@ -66,7 +66,6 @@ function CategoryList() {
 
   return (
     <div>
-      <Header />
       {error && <p>Lỗi: {(error as Error).message}</p>}
       <Table
         dataSource={data}
