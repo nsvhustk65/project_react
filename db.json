@@ -1,34 +1,41 @@
 {
   "products": [
     {
-      "id": 1,
-      "name": "iPhone 15",
-      "price": 999,
-      "image": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630",
-      "description": "Flagship smartphone with advanced features."
-    },
-    {
-      "id": 2,
+      "id": "2",
       "name": "Samsung Galaxy S24",
-      "price": 899,
-      "image": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630",
-      "description": "Flagship smartphone with advanced features."
+      "price": 89911111,
+      "description": "Flagship smartphone with advanced features.",
+      "image": "",
+      "quantity": 100
     },
     {
-      "id": 3,
+      "id": "3",
       "name": "Xiaomi Mi 14",
       "price": 599,
       "image": "https://images.ctfassets.net/hrltx12pl8hq/28ECAQiPJZ78hxatLTa7Ts/2f695d869736ae3b0de3e56ceaca3958/free-nature-images.jpg?fit=fill&w=1200&h=630",
-      "description": "Flagship smartphone with advanced features."
+      "description": "Flagship smartphone with advanced features.",
+      "quantity": 0
+    },
+    {
+      "id": "6e7d",
+      "name": "iPhone 14",
+      "price": 100000,
+      "description": "vip",
+      "image": "#"
     }
   ],
-  
   "categories": [
-    { "id": 1, "name": "Sách thiếu nhi", "description": "Dành cho trẻ em từ 3-10 tuổi" },
-    { "id": 2, "name": "Truyện tranh", "description": "Manga, Manhwa, Webtoon" },
-    { "id": 3, "name": "Tiểu thuyết", "description": "Tác phẩm văn học dài tập" }
-  ]
-  ,
+    {
+      "id": "2",
+      "name": "Truyện tranh 1",
+      "description": "Manga, Manhwa, Webtoon"
+    },
+    {
+      "id": "3",
+      "name": "Tiểu thuyết",
+      "description": "Tác phẩm văn học dài tập"
+    }
+  ],
   "brands": [
     {
       "id": "1",
@@ -47,20 +54,22 @@
       "name": "Nguyen Van A",
       "email": "a@gmail.com",
       "phone": "0123456789",
-      "address": "Hanoi"
+      "address": "Hanoi",
+      "status": "active"
     },
     {
       "id": "2",
       "name": "Tran Thi B",
       "email": "b@gmail.com",
       "phone": "0987654321",
-      "address": "Ho Chi Minh City"
+      "address": "Ho Chi Minh City",
+      "status": "inactive"
     }
   ],
-    "orders": [
+  "orders": [
     {
       "id": "101",
-      "products":"1,2",
+      "products": "2",
       "userId": "1",
       "customerName": "Nguyen Van A",
       "totalAmount": 1200000,
@@ -78,5 +87,3 @@
     }
   ]
 }
-
-
