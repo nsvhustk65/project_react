@@ -1,14 +1,6 @@
 {
   "products": [
     {
-      "id": "2",
-      "name": "Samsung Galaxy S24",
-      "price": 89911111,
-      "description": "Flagship smartphone with advanced features.",
-      "image": "",
-      "quantity": 100
-    },
-    {
       "id": "3",
       "name": "Xiaomi Mi 14",
       "price": 599,
@@ -51,19 +43,47 @@
   "users": [
     {
       "id": "1",
-      "name": "Nguyen Van A",
-      "email": "a@gmail.com",
+      "username": "admin",
+      "password": "123456",
+      "role": "admin",
+      "fullname": "Admin User",
+      "email": "admin@gmail.com",
       "phone": "0123456789",
       "address": "Hanoi",
       "status": "active"
     },
     {
       "id": "2",
-      "name": "Tran Thi B",
+      "username": "vinh1234@gmail.com",
+      "password": "vinh1234",
+      "role": "admin",
+      "fullname": "Vinh Admin",
+      "email": "vinh1234@gmail.com",
+      "phone": "0987654321",
+      "address": "Ho Chi Minh City",
+      "status": "active"
+    },
+    {
+      "id": "3",
+      "username": "user1",
+      "password": "user1pass",
+      "role": "user",
+      "fullname": "Nguyen Van A",
+      "email": "a@gmail.com",
+      "phone": "0123456789",
+      "address": "Hanoi",
+      "status": "active"
+    },
+    {
+      "id": "4",
+      "username": "user2",
+      "password": "user2pass",
+      "role": "user",
+      "fullname": "Tran Thi B",
       "email": "b@gmail.com",
       "phone": "0987654321",
       "address": "Ho Chi Minh City",
-      "status": "inactive"
+      "status": "active"
     }
   ],
   "orders": [

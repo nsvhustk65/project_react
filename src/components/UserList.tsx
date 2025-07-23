@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { message, Spin } from "antd";
+import { message, Spin, Select } from "antd";
 
 interface User {
   id: string;
-  name: string;
+  username: string;
+  fullname: string;
   phone: string;
   email: string;
   address: string;
-  description: string;
-  status: "active" | "inactive"; // Thêm trạng thái
+  role: string;
+  status: "active" | "inactive";
 }
 
 function UserList() {
   const [searchTerm, setSearchTerm] = useState("");
   const queryClient = useQueryClient();
+  const [editUserId, setEditUserId] = useState<string | null>(null);
+  const [editRole, setEditRole] = useState<string>("");
 
   const fetchUsers = async () => {
     const res = await fetch("http://localhost:3001/users");
@@ -48,17 +51,57 @@ function UserList() {
     },
   });
 
+  const updateRoleMutation = useMutation({
+    mutationFn: async ({ id, role }: { id: string; role: string }) => {
+      const res = await fetch(`http://localhost:3001/users/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ role }),
+      });
+      if (!res.ok) throw new Error("Không thể cập nhật vai trò");
+      return res.json();
+    },
+    onSuccess: () => {
+      message.success("Cập nhật vai trò thành công");
+      setEditUserId(null);
+      queryClient.invalidateQueries({ queryKey: ["users"] });
+    },
+    onError: () => {
+      message.error("Có lỗi xảy ra khi cập nhật vai trò");
+    },
+  });
+
   const handleToggleStatus = (user: User) => {
     updateStatusMutation.mutate(user);
+  };
+
+  const handleEditRole = (user: User) => {
+    setEditUserId(user.id);
+    setEditRole(user.role);
+  };
+  const handleCancelEdit = () => {
+    setEditUserId(null);
+    setEditRole("");
+  };
+  const handleSaveRole = (user: User) => {
+    if (editRole && editRole !== user.role) {
+      updateRoleMutation.mutate({ id: user.id, role: editRole });
+    } else {
+      setEditUserId(null);
+    }
   };
 
   const filteredUsers = data?.filter((user) => {
     const keyword = searchTerm.toLowerCase();
     return (
-      user.name.toLowerCase().includes(keyword) ||
+      user.fullname.toLowerCase().includes(keyword) ||
+      user.username.toLowerCase().includes(keyword) ||
       user.phone.toLowerCase().includes(keyword) ||
       user.email.toLowerCase().includes(keyword) ||
-      user.address.toLowerCase().includes(keyword)
+      user.address.toLowerCase().includes(keyword) ||
+      user.role.toLowerCase().includes(keyword)
     );
   });
 
@@ -98,7 +141,9 @@ function UserList() {
                     <thead>
                       <tr>
                         <th className="center">STT</th>
-                        <th>Tên người dùng</th>
+                        <th>Tên đăng nhập</th>
+                        <th>Họ và tên</th>
+                        <th>Vai trò</th>
                         <th>Số điện thoại</th>
                         <th>Email</th>
                         <th>Địa chỉ</th>
@@ -111,7 +156,24 @@ function UserList() {
                         filteredUsers.map((item, index) => (
                           <tr key={item.id} className="gradeA">
                             <td className="center">{index + 1}</td>
-                            <td>{item.name}</td>
+                            <td>{item.username}</td>
+                            <td>{item.fullname}</td>
+                            <td>
+                              {editUserId === item.id ? (
+                                <Select
+                                  value={editRole}
+                                  onChange={setEditRole}
+                                  style={{ width: 100 }}
+                                  options={[
+                                    { value: "admin", label: "admin" },
+                                    { value: "user", label: "user" },
+                                  ]}
+                                  size="small"
+                                />
+                              ) : (
+                                item.role
+                              )}
+                            </td>
                             <td>{item.phone}</td>
                             <td>{item.email}</td>
                             <td>{item.address}</td>
@@ -131,12 +193,37 @@ function UserList() {
                                   ? "Chặn tài khoản"
                                   : "Mở chặn"}
                               </button>
+                              {editUserId === item.id ? (
+                                <>
+                                  <button
+                                    className="btn btn-primary btn-sm ml-2"
+                                    onClick={() => handleSaveRole(item)}
+                                    disabled={updateRoleMutation.isLoading}
+                                  >
+                                    Lưu
+                                  </button>
+                                  <button
+                                    className="btn btn-secondary btn-sm ml-2"
+                                    onClick={handleCancelEdit}
+                                    disabled={updateRoleMutation.isLoading}
+                                  >
+                                    Hủy
+                                  </button>
+                                </>
+                              ) : (
+                                <button
+                                  className="btn btn-warning btn-sm ml-2"
+                                  onClick={() => handleEditRole(item)}
+                                >
+                                  Sửa
+                                </button>
+                              )}
                             </td>
                           </tr>
                         ))
                       ) : (
                         <tr>
-                          <td colSpan={7} className="text-center">
+                          <td colSpan={9} className="text-center">
                             Không có dữ liệu
                           </td>
                         </tr>

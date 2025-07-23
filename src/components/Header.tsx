@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// Import AuthContext từ App
+import { AuthContext } from "../App";
 
 function Header() {
+  const navigate = useNavigate();
+  const auth = useContext(AuthContext) as { token: string | null; setToken: (t: string | null) => void };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    if (auth && auth.setToken) auth.setToken(null);
+    navigate("/login");
+  };
+
   return (
     <header className="header white-bg">
       <div className="sidebar-toggle-box">
@@ -243,9 +255,9 @@ function Header() {
                 </a>
               </li>
               <li>
-                <a href="login.html">
+                <Link to="/login" onClick={handleLogout}>
                   <i className="fa fa-key"></i> Log Out
-                </a>
+                </Link>
               </li>
             </ul>
           </li>
