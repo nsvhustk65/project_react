@@ -81,7 +81,7 @@ function AddProduct() {
                       value={formData.price}
                       onChange={handleChange}
                     />
-                  </div>
+                  </div> 
 
                   <div className="form-group">
                     <label htmlFor="description">Mô tả</label>

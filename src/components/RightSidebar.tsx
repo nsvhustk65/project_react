@@ -35,7 +35,7 @@ const RightSidebar: React.FC = () => {
               </div>
               <strong>Jonathan Smith</strong>
               <small>United States</small>
-            </div>
+            </div>  
           </div>
         </li>
         <li className="online">
